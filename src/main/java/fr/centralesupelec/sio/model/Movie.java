@@ -15,6 +15,14 @@ public class Movie {
     private List<Actor> listActors;
     private List<Director> listDirectors;
 
+    //For faster construction
+    public Movie(long pid, String ptitle)
+    {
+        this.id = pid;
+        this.title = ptitle;
+    }
+    public Movie(){}
+
     public long getId() {
         return id;
     }
