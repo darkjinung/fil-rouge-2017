@@ -28,6 +28,10 @@ class DummyMoviesRepository extends MoviesRepository {
         Genre gadventure = new Genre(3,"Adventure");
         Genre gsci_fi = new Genre(4,"Sci-fi");
         Genre gmystery = new Genre(5,"Mystery");
+        Genre gfantasy = new Genre(6,"Fantasy");
+        Genre gmusical = new Genre(7,"Musical");
+        Genre gbibliography = new Genre(8,"Bibliography");
+        Genre gtest = new Genre(999,"Test");
 
 
         // Define some static movies on creation
@@ -154,7 +158,61 @@ class DummyMoviesRepository extends MoviesRepository {
         m3.setListActors(Arrays.asList(a6,a7,a8));
         m3.setListDirectors(Arrays.asList(d3));
 
-        mMovies = Arrays.asList(m1, m2, m3);
+        //tests
+        Actor atest = new Actor();
+        atest.setId(999);
+        atest.setPrénom("Bob");
+        atest.setNom("TheClerc");
+        salias.clear(); salias.add("Le bob");
+        atest.setAlias(salias);
+        atest.setAwards(Arrays.asList(""));
+        atest.setNominations(Arrays.asList(""));
+        atest.setDateOfBirth(new GregorianCalendar(1900, 1, 1).getTime());
+        Director dtest = new Director();
+        dtest.setId(999);
+        dtest.setPrénom("Joe");
+        dtest.setNom("TheChild");
+        dtest.setAwards(Arrays.asList(""));
+        dtest.setNominations(Arrays.asList(""));
+        dtest.setDateOfBirth(new GregorianCalendar(1900,1,1).getTime());
+
+        // more movies just for search tests
+        Movie m4 = new Movie(4,"Star Wars");
+        sgenres.clear();
+        sgenres.add(gaction); sgenres.add(gadventure); sgenres.add(gfantasy);
+        m4.setGenres(sgenres);
+        m4.setListActors(Arrays.asList(atest));
+        m4.setListDirectors(Arrays.asList(dtest));
+
+        Movie m5 = new Movie(5,"Logan");
+        sgenres.clear();
+        sgenres.add(gaction);sgenres.add(gdrama);sgenres.add(gsci_fi);
+        m5.setGenres(sgenres);
+        m5.setListActors(Arrays.asList(atest));
+        m5.setListDirectors(Arrays.asList(dtest));
+
+        Movie m6 = new Movie(6,"The Greatest Showman");
+        sgenres.clear();
+        sgenres.add(gdrama);sgenres.add(gmusical);sgenres.add(gbibliography);
+        m6.setGenres(sgenres);
+        m6.setListActors(Arrays.asList(atest));
+        m6.setListDirectors(Arrays.asList(dtest));
+
+        Movie m7 = new Movie(7,"Guardians of the Galaxy");
+        sgenres.clear();
+        sgenres.add(gaction);sgenres.add(gadventure);sgenres.add(gsci_fi);
+        m7.setGenres(sgenres);
+        m7.setListActors(Arrays.asList(atest));
+        m7.setListDirectors(Arrays.asList(dtest));
+
+        Movie m8 = new Movie(8,"Rogue One");
+        sgenres.clear();
+        sgenres.add(gaction);sgenres.add(gadventure);sgenres.add(gsci_fi);
+        m8.setGenres(sgenres);
+        m8.setListActors(Arrays.asList(atest));
+        m8.setListDirectors(Arrays.asList(dtest));
+
+        mMovies = Arrays.asList(m1, m2, m3, m4, m5, m6, m7, m8);
     }
 
     @Override
