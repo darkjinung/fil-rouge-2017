@@ -29,7 +29,9 @@ public class MoviesServlet extends HttpServlet {
 
         // Get movies from the repository.
         String ptitle = req.getParameter("title");
-        try {pgenres = Arrays.asList(req.getParameter("genre").split(","));}
+        try {pgenres = Arrays.asList(req.getParameter("genre").split(","));
+            pgenres.stream().map(String::toLowerCase).collect(Collectors.toList());
+        }
         catch(NullPointerException e){
             pgenres = new ArrayList<>();
         }
