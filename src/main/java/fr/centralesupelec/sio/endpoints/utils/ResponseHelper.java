@@ -15,6 +15,23 @@ public class ResponseHelper {
 
     private static final String JSON_CONTENT_TYPE = "application/json";
 
+    //Class to have a Gson singleton
+    private static class GsonSingleton
+    {
+        private static Gson gson;
+
+        public static Gson getInstance() {
+            if (gson == null) {
+                // Configure the Gson library
+                gson = new GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                        .create();
+            }
+            return gson;
+        }
+
+    }
+
     /**
      * Serialize an object to JSON using Gson, and write it to the response.
      * @param resp: The {@link HttpServletResponse} to write to.
@@ -24,13 +41,9 @@ public class ResponseHelper {
     public static void writeJsonResponse(HttpServletResponse resp, Object response) throws IOException {
         // Send a Content-Type header to inform the client of the format of the response.
         resp.setContentType(JSON_CONTENT_TYPE);
-        // Configure the Gson library
-        // TODO: Don't recreate a new Gson instance for each response, reuse (singleton?)
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+
         // Write the object to the response
-        gson.toJson(response, resp.getWriter());
+        GsonSingleton.getInstance().toJson(response, resp.getWriter());
     }
 
     /**

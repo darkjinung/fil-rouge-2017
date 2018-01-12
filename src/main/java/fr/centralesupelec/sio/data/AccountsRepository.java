@@ -30,6 +30,5 @@ public abstract class AccountsRepository {
      */
     public abstract Account getAccount(String username);
 
-    // TODO: Add other movie-related methods here
 
 }

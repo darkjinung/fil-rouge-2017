@@ -1,6 +1,7 @@
 package fr.centralesupelec.sio.model;
 
-import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * An entity class for a movie.
@@ -9,8 +10,10 @@ public class Movie {
 
     private long id;
     private String title;
-    // MovieGenre is an enum, combinations of enums are best handled by EnumSet.
-    private EnumSet<MovieGenre> genres;
+    private Set<Genre> genres;
+    // Actors and directors
+    private List<Actor> listActors;
+    private List<Director> listDirectors;
 
     public long getId() {
         return id;
@@ -28,12 +31,27 @@ public class Movie {
         this.title = title;
     }
 
-    public EnumSet<MovieGenre> getGenres() {
+    public Set<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(EnumSet<MovieGenre> genres) {
+    public void setGenres(Set<Genre> genres) {
         this.genres = genres;
     }
 
+    public List<Actor> getListActors() {
+        return listActors;
+    }
+
+    public void setListActors(List<Actor> listActors) {
+        this.listActors = listActors;
+    }
+
+    public List<Director> getListDirectors() {
+        return listDirectors;
+    }
+
+    public void setListDirectors(List<Director> listDirectors) {
+        this.listDirectors = listDirectors;
+    }
 }

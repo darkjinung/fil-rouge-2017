@@ -1,8 +1,11 @@
 package fr.centralesupelec.sio.data;
 
-import fr.centralesupelec.sio.model.Movie;
+import fr.centralesupelec.sio.model.*;
 
+import java.lang.reflect.Array;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A data repository to expose movie-related entities.
@@ -36,13 +39,14 @@ public abstract class MoviesRepository {
     // The only way to get a MovieRepository from the outside is MovieRepository.getInstance().
     protected MoviesRepository() { }
 
+    /// MOVIES
     /**
      * Query all available movies.
      * @return A list of {@link Movie} entities.
      */
     // We only define the interface of a repository, concrete implementation is delegated to subclasses.
-    // TODO: Add another method or parameters for pagination (get a subset of the list)
     public abstract List<Movie> getMovies();
+    public abstract List<Movie> getMovies(String title, List<String> genres, List<Long> directors, List<Long> actors, int offset, int limit);
 
     /**
      * @param id: The id of the movie.
@@ -54,6 +58,60 @@ public abstract class MoviesRepository {
     // - throw an exception, such as java.util.NoSuchElementException.
     public abstract Movie getMovie(long id);
 
-    // TODO: Add other movie-related methods here
+    /// GENRES
+    /**
+     * Query all available genres.
+     * @return A list of {@link MovieGenre} entities.
+     */
+    // We only define the interface of a repository, concrete implementation is delegated to subclasses.
+    public abstract Set<Genre> getMoviesGenre();
+
+    /**
+     * @param id: The id of the movie.
+     * @return The {@link MovieGenre} entity, or null if the genre does not exist.
+     */
+    // We have several choices to handle the problem of unknown id:
+    // - return null.
+    // - use java.util.Optional<MovieGenre> as the return type, which explicitly handles the missing case.
+    // - throw an exception, such as java.util.NoSuchElementException.
+    public abstract Genre getGenre(long id);
+
+    /// ACTORS
+    /**
+     * Query all available actors.
+     * @return A list of {@link Actor}s entities.
+     */
+    // We only define the interface of a repository, concrete implementation is delegated to subclasses.
+    public abstract Set<Actor> getActors();
+
+    /**
+     * @param id: The id of the movie.
+     * @return The {@link Actor} entity, or null if the genre does not exist.
+     */
+    // We have several choices to handle the problem of unknown id:
+    // - return null.
+    // - use java.util.Optional<Actor> as the return type, which explicitly handles the missing case.
+    // - throw an exception, such as java.util.NoSuchElementException.
+    public abstract Actor getActor(long id);
+
+    /// DIRECTORS
+    /**
+     * Query all available directors.
+     * @return A list of {@link Director}s entities.
+     */
+    // We only define the interface of a repository, concrete implementation is delegated to subclasses.
+    public abstract Set<Director> getDirectors();
+
+    /**
+     * @param id: The id of the movie.
+     * @return The {@link Actor} entity, or null if the genre does not exist.
+     */
+    // We have several choices to handle the problem of unknown id:
+    // - return null.
+    // - use java.util.Optional<Director> as the return type, which explicitly handles the missing case.
+    // - throw an exception, such as java.util.NoSuchElementException.
+    public abstract Director getDirector(long id);
+
+
 
 }

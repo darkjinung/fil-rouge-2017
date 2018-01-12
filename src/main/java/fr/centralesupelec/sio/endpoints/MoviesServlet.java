@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A servlet to access the list of {@link Movie}s.
@@ -22,13 +23,35 @@ public class MoviesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        //
+        List<String> pgenres, pdirectors, pactors;
+        //List<Integer> pactors = new ArrayList<>();
+
         // Get movies from the repository.
-        // TODO: Add pagination parameters
-        List<Movie> movies = MoviesRepository.getInstance().getMovies();
+        String ptitle = req.getParameter("title");
+        try {pgenres = Arrays.asList(req.getParameter("genre").split(","));}
+        catch(NullPointerException e){
+            pgenres = new ArrayList<>();
+        }
+        try { pdirectors = Arrays.asList(req.getParameter("director").split(","));}
+        catch(NullPointerException e){
+            pdirectors = new ArrayList<>();
+        }
+        try{pactors = Arrays.asList(req.getParameter("actor").split(","));}
+        catch(NullPointerException e){
+            pactors = new ArrayList<>();
+        }
+        String poffset = req.getParameter("offset");
+        String plimit = req.getParameter("limit");
 
-        // Write to the response.
-        ResponseHelper.writeJsonResponse(resp, movies);
-
+        //If no parameters, return first 5 movies
+        if(ptitle == null) ptitle="";
+        if(poffset == null) poffset="0";
+        if(plimit == null) plimit="20";
+        ResponseHelper.writeJsonResponse(resp, MoviesRepository.getInstance().getMovies(ptitle, pgenres,
+                pdirectors.stream().map(Long::parseLong).collect(Collectors.toList()),
+                pactors.stream().map(Long::parseLong).collect(Collectors.toList()),
+                Integer.parseInt(poffset), Integer.parseInt(plimit)));
     }
 
 }

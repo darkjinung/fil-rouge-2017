@@ -4,6 +4,7 @@ import fr.centralesupelec.sio.data.AccountsRepository;
 import fr.centralesupelec.sio.endpoints.utils.ResponseHelper;
 import fr.centralesupelec.sio.model.Account;
 import fr.centralesupelec.sio.model.Token;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.validator.routines.EmailValidator;
 
 import javax.servlet.ServletException;
@@ -58,8 +59,8 @@ public class AuthServlet extends HttpServlet {
             return;
         }
         // Check the password
-        // TODO: Better check with a hash
-        if (!account.getPasswordHash().equals(password)) {
+        // Better checked! with a hash
+        if (!account.getPasswordHash().equals(DigestUtils.sha1Hex(password))) {
             ResponseHelper.writeError(resp,"Invalid credentials", resp.SC_UNAUTHORIZED);
             return;
         }
