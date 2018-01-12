@@ -1,6 +1,7 @@
 package fr.centralesupelec.sio.data;
 
 import fr.centralesupelec.sio.model.Account;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +19,7 @@ public class DummyAccountsRepository extends AccountsRepository {
         // Define a single account
         Account a1 = new Account();
         a1.setUsername("admin@ecp.sio.fr");
-        a1.setPasswordHash("password"); // TODO: Hash passwords!
+        a1.setPasswordHash(DigestUtils.sha1Hex("password")); //password hashed
         // Warning: the list below will be immutable (be the contained entities can be modified)
         mAccounts = Collections.singletonList(a1);
     }
